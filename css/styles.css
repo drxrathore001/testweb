@@ -1,0 +1,292 @@
+/* --- Base & Utilities --- */
+body {
+    background-color: #020202;
+    color: #f3f4f6;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+    background: #D4AF37;
+    color: #000;
+}
+
+.text-gold-gradient {
+    background: linear-gradient(to right, #F2D06B, #D4AF37, #aa8c2c, #F2D06B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
+    animation: shine 6s linear infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Glassmorphism */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Gold Frame */
+.gold-frame {
+    position: relative;
+}
+
+.gold-frame::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: -15px;
+    bottom: -15px;
+    border: 1px solid #D4AF37;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+
+/* --- BACKGROUNDS & LIGHTING --- */
+
+/* Deep Luxury Background Base - Used for sections with spotlights */
+.bg-luxury-radial {
+    background: radial-gradient(circle at 50% 30%, #0d0d0d 0%, #020202 70%);
+}
+
+/* Ambient Gold Spotlights (Volumetric Light) */
+.spotlight-gold {
+    background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* --- Animations --- */
+
+/* Scroll Reveal Animation */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Fade In Up (Added for Hero Text) */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Reveal Image from Bottom */
+@keyframes revealImage {
+    0% { clip-path: inset(100% 0 0 0); transform: translateY(20px); opacity: 0; }
+    100% { clip-path: inset(0 0 0 0); transform: translateY(0); opacity: 1; }
+}
+
+.animate-reveal-image {
+    animation: revealImage 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Simple Scale In */
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.animate-scale-in {
+    animation: scaleIn 1s ease-out forwards;
+}
+
+/* Slow Spin for the badge */
+@keyframes spinSlow {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to { transform: translateY(-50%) rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spinSlow 20s linear infinite;
+}
+
+/* Moving Gradient Animation (The "Flow" Effect) */
+@keyframes subtleFlow {
+    0% {
+        background-size: 150% 150%;
+        background-position: 0% 0%;
+    }
+    50% {
+        background-size: 150% 150%;
+        background-position: 100% 100%;
+    }
+    100% {
+        background-size: 150% 150%;
+        background-position: 0% 0%;
+    }
+}
+
+.animate-subtle-flow {
+    animation: subtleFlow 15s ease-in-out infinite;
+}
+
+/* Ensure Radial Gradient works */
+.bg-radial-gradient {
+    background-image: radial-gradient(circle at center, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 100%);
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+.animate-shine {
+    background-size: 200% auto;
+    animation: shine 4s linear infinite;
+}
+
+/* --- Buttons --- */
+
+/* Button Luxury - Updated with Shimmer Sweep */
+.btn-luxury {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+}
+
+/* The Shine Sweep Effect */
+.btn-luxury::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%; /* Start far left */
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg, 
+        transparent, 
+        rgba(212, 175, 55, 0.4), 
+        transparent
+    );
+    transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+}
+
+.btn-luxury:hover::before {
+    left: 150%; /* Sweep all the way to the right */
+}
+
+.btn-luxury:hover {
+    color: #fff; /* Keep text light for the shimmer look */
+    border-color: #D4AF37;
+    background: rgba(212, 175, 55, 0.05); /* Very subtle gold tint on hover */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* --- Mobile Menu & Navigation --- */
+
+/* Menu Open State */
+body.menu-open header#header-container {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    backdrop-filter: blur(0px) !important;
+    -webkit-backdrop-filter: blur(0px) !important;
+    box-shadow: none !important;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+#mobile-menu-overlay {
+    z-index: 40;
+}
+
+/* Mobile Link Animation */
+.mobile-link {
+    position: relative;
+}
+
+.mobile-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: #D4AF37;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.mobile-link:hover::after {
+    width: 100%;
+}
+
+/* Icon Morphing */
+.icon-morph {
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    display: inline-block;
+}
+
+.icon-morph.active {
+    transform: rotate(180deg);
+}
+
+/* --- RESPONSIVE FIXES --- */
+
+/* Adjustments for Mobile Screens (< 640px) */
+@media (max-width: 640px) {
+    /* Prevent large text from touching edges or breaking weirdly */
+    h1 {
+        letter-spacing: -0.02em;
+    }
+    
+    /* Make the CTA button full width or easier to tap */
+    .btn-luxury {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Adjust glass panels for better mobile performance */
+    .glass-panel {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}
+
+/* Hero Section Height Control */
+#home {
+    /* Ensures the hero doesn't scroll excessively on mobile */
+    /* allowing the button to stay "above the fold" */
+    max-height: 100vh; 
+}
